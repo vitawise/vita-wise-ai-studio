@@ -14,6 +14,16 @@
 
 Update this table with the exact values that worked once the first deploy is live.
 
+## Database migrations
+
+Schema lives in `src/server/db/*.ts`; SQL migrations are committed in `src/server/db/migrations/`.
+
+- Change schema → `npm run db:generate` → commit the new SQL.
+- Apply → `npm run db:migrate` (reads the same `DB_*` vars as the app). Run it once after every
+  deploy that adds a migration — or set the build command to
+  `npm run db:migrate && npm run build` so it runs automatically (the DB must be reachable
+  from the build).
+
 ## One-time setup
 
 1. **MySQL** — hPanel → Databases → create DB + user. Host is always `127.0.0.1`
@@ -30,6 +40,17 @@ R2_SECRET_ACCESS_KEY R2_BUCKET ADMIN_USER ADMIN_PASSWORD LOG_LEVEL`.
    Full list with descriptions: `.env.example`. Vars must exist at build time;
    **redeploy/restart after any change.**
 5. Point the owner's domain at the app (hPanel → Domains).
+6. **Phase 1 auth** — also set `BETTER_AUTH_SECRET` (e.g. `openssl rand -base64 32`),
+   `BETTER_AUTH_URL` (the public https URL, no trailing slash), `SMTP_*`, and optionally
+   `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` (Google button is hidden until both are set).
+   Google OAuth redirect URI: `{BETTER_AUTH_URL}/api/auth/callback/google`.
+
+## Vercel (preview only — not the production target)
+
+Vercel builds whatever is on `main`. If `main` has no app (only `CLAUDE.md`) Vercel serves
+`404: NOT_FOUND` — merge the app into `main` first. Vercel cannot reach Hostinger's MySQL at
+`127.0.0.1`; auth pages need a MySQL that accepts remote connections (hPanel → Remote MySQL,
+host `%`) and `DB_HOST` set to that server's public hostname.
 
 ## Phase 0 acceptance check
 
