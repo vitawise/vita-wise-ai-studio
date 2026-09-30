@@ -53,6 +53,10 @@ declared in `vercel.json`). Production URL: `https://vita-wise-ai-studio-vita-wi
 production; every other branch gets a preview URL. Without `DB_*` + `BETTER_AUTH_SECRET` the
 public pages work and auth pages show a "not configured" notice instead of failing.
 
+Migrations run automatically on Vercel: `vercel.json` sets the build command to
+`npm run db:migrate && npm run build`. Environments without `DB_NAME`/`DB_USER` (previews) skip
+the step; a production build whose DB is unreachable fails, and the last good deployment stays live.
+
 Vercel builds whatever is on `main`. If `main` has no app (only `CLAUDE.md`) Vercel serves
 `404: NOT_FOUND` — merge the app into `main` first. Vercel cannot reach Hostinger's MySQL at
 `127.0.0.1`; auth pages need a MySQL that accepts remote connections (hPanel → Remote MySQL,
