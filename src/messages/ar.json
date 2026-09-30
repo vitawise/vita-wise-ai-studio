@@ -93,5 +93,51 @@
   "notFound": {
     "title": "الصفحة غير موجودة",
     "back": "العودة للرئيسية"
+  },
+  "billing": {
+    "currentPlan": "خطتك الحالية",
+    "balance": "الرصيد المتاح",
+    "credits": "{count} رصيد",
+    "status": {
+      "trialing": "فترة تجريبية",
+      "active": "نشطة",
+      "past_due": "متأخرة الدفع",
+      "canceled": "ملغاة"
+    },
+    "trialEnds": "تنتهي التجربة في {date}",
+    "renews": "تتجدد في {date}",
+    "plans": "الخطط",
+    "perMonth": "ر.س / شهريًا",
+    "monthlyCredits": "{count} رصيد شهريًا",
+    "features": {
+      "sallaSync": "مزامنة سلة",
+      "trends": "اتجاهات السوق",
+      "maxUsers": "حتى {count} مستخدمين"
+    },
+    "paymentsSoon": "الدفع الإلكتروني قريبًا",
+    "vatNote": "الأسعار لا تشمل ضريبة القيمة المضافة 15%.",
+    "costs": "تكلفة العمليات",
+    "action": "العملية",
+    "cost": "الرصيد",
+    "history": "سجل الرصيد",
+    "date": "التاريخ",
+    "reason": "السبب",
+    "change": "التغيير",
+    "empty": "لا توجد حركات بعد.",
+    "reasons": {
+      "trial_grant": "رصيد الفترة التجريبية",
+      "job_reserve": "حجز لعملية",
+      "job_refund": "استرجاع لعملية لم تكتمل"
+    },
+    "jobTypes": {
+      "product_research": "بحث وتحقق من منتج",
+      "product_generate_content": "باقة محتوى منتج",
+      "product_generate_image": "صورة منتج",
+      "price_check": "فحص أسعار المنافسين",
+      "campaign_generate_text": "نصوص حملة",
+      "campaign_generate_image": "صورة حملة",
+      "trends_run": "تقرير اتجاهات السوق",
+      "salla_push": "نشر إلى سلة"
+    }
   }
 }

@@ -22,7 +22,15 @@ export async function requireUser(locale: Locale) {
   return session.user;
 }
 
-/** Tenant scope for every data access. Redirects to login / onboarding as needed. */
+/** Tenant scope for API routes: null when signed out or not onboarded (caller answers 401). */
+export const getTenantContext = cache(async (): Promise<TenantContext | null> => {
+  const session = await getSession();
+  if (!session) return null;
+  const membership = await findMembershipForUser(session.user.id);
+  return membership ? mintTenantContext({ userId: session.user.id, ...membership }) : null;
+});
+
+/** Tenant scope for every page. Redirects to login / onboarding as needed. */
 export const requireTenant = cache(async (locale: Locale): Promise<TenantContext> => {
   const user = await requireUser(locale);
   const membership = await findMembershipForUser(user.id);

@@ -90,3 +90,18 @@ npm ci
 npm run dev
 npm run typecheck && npm run lint && npm test && npm run build
 ```
+
+## Background jobs (Phase 2)
+
+Long work runs as jobs (`jobs` table). Credits are reserved when a job is queued and refunded
+if it finally fails (3 attempts, backoff 30s → 60s; locks older than 5 min are recovered).
+
+- **Runner:** `POST /api/jobs/tick` with header `x-cron-secret: $CRON_SECRET`, every minute.
+  Processes jobs for up to 45 s. On Hostinger: hPanel → Advanced → Cron Jobs →
+  `curl -s -X POST -H "x-cron-secret: <CRON_SECRET>" https://<domain>/api/jobs/tick`.
+  Vercel Hobby crons run only daily, so use the hPanel cron (or any external scheduler) there too.
+  With Vercel Deployment Protection on, external schedulers get 401 from Vercel before reaching
+  the app: disable protection for production or add a protection-bypass token.
+- **Nudge:** the UI calls `POST /api/jobs/{id}/nudge` right after queuing, so users don't
+  wait for the next tick; it polls `GET /api/jobs/{id}` every 2–3 s.
+- Job handlers are registered per module in `src/server/jobs/handlers/index.ts`.
