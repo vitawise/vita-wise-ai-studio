@@ -15,7 +15,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "node scripts/migrate.mts"
+    "db:migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1141.0",
