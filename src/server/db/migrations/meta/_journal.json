@@ -8,6 +8,20 @@
       "when": 1790770200108,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1790772419178,
+      "tag": "0001_phase2_jobs_credits",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1790772435205,
+      "tag": "0002_seed_plans_and_trials",
+      "breakpoints": true
     }
   ]
 }

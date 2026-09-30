@@ -93,5 +93,51 @@
   "notFound": {
     "title": "Page not found",
     "back": "Back to home"
+  },
+  "billing": {
+    "currentPlan": "Current plan",
+    "balance": "Available credits",
+    "credits": "{count} credits",
+    "status": {
+      "trialing": "Free trial",
+      "active": "Active",
+      "past_due": "Payment overdue",
+      "canceled": "Canceled"
+    },
+    "trialEnds": "Trial ends on {date}",
+    "renews": "Renews on {date}",
+    "plans": "Plans",
+    "perMonth": "SAR / month",
+    "monthlyCredits": "{count} credits per month",
+    "features": {
+      "sallaSync": "Salla sync",
+      "trends": "Market trends",
+      "maxUsers": "Up to {count} users"
+    },
+    "paymentsSoon": "Online payment coming soon",
+    "vatNote": "Prices exclude 15% VAT.",
+    "costs": "Cost per action",
+    "action": "Action",
+    "cost": "Credits",
+    "history": "Credit history",
+    "date": "Date",
+    "reason": "Reason",
+    "change": "Change",
+    "empty": "No activity yet.",
+    "reasons": {
+      "trial_grant": "Free trial credits",
+      "job_reserve": "Reserved for a task",
+      "job_refund": "Refund for a task that didn't finish"
+    },
+    "jobTypes": {
+      "product_research": "Product research & verification",
+      "product_generate_content": "Product content package",
+      "product_generate_image": "Product image",
+      "price_check": "Competitor price check",
+      "campaign_generate_text": "Campaign copy",
+      "campaign_generate_image": "Campaign image",
+      "trends_run": "Market trends report",
+      "salla_push": "Push to Salla"
+    }
   }
 }

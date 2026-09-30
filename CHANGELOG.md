@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.2.0] — Phase 2: jobs, credits, billing (trial)
+
+### Added
+
+- Tables `plans`, `subscriptions`, `credit_ledger`, `jobs`; seed plans (Trial 50 credits /
+  Starter / Pro / Chain — placeholder prices) and a 14-day trial for existing pharmacies.
+- Credit ledger: append-only, balance = SUM(delta) under a per-pharmacy row lock, cached in
+  `pharmacies.credits_balance`, idempotent per (reason, reference). Trial granted on onboarding.
+- Job queue: reserve credits on enqueue, atomic claim (`UPDATE … LIMIT 1` + lock token),
+  retries with exponential backoff (max 3), permanent errors, stale-lock recovery, refund on
+  final failure. `POST /api/jobs/tick` (cron secret), `GET /api/jobs/{id}`,
+  `POST /api/jobs/{id}/nudge` (tenant-scoped).
+- Billing page: current plan and trial end, balance, plans, cost per action, credit history.
+- Tests: job lifecycle, retries/refund, insufficient credits, racing runners, stale locks,
+  ledger idempotency, tenant isolation of jobs and ledger.
+
+### Fixed
+
+- Onboarding no longer takes a gap lock on `memberships` (concurrent sign-ups could deadlock).
+- Removed unused `pharmacies.plan_id` (the subscription holds the plan).
+
+### Not yet
+
+- Moyasar payments: official docs unreachable from the build environment; not implemented
+  (no endpoints guessed). Plan buttons show "online payment coming soon".
+
 ## [0.1.1] — Production DB fixes
 
 ### Fixed
