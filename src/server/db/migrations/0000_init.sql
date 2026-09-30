@@ -6,12 +6,12 @@ CREATE TABLE `account` (
 	`access_token` text,
 	`refresh_token` text,
 	`id_token` text,
-	`access_token_expires_at` timestamp(3),
-	`refresh_token_expires_at` timestamp(3),
+	`access_token_expires_at` datetime(3),
+	`refresh_token_expires_at` datetime(3),
 	`scope` text,
 	`password` text,
-	`created_at` timestamp(3) NOT NULL DEFAULT (now()),
-	`updated_at` timestamp(3) NOT NULL,
+	`created_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+	`updated_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 	CONSTRAINT `account_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
@@ -26,10 +26,10 @@ CREATE TABLE `rate_limit` (
 --> statement-breakpoint
 CREATE TABLE `session` (
 	`id` varchar(36) NOT NULL,
-	`expires_at` timestamp(3) NOT NULL,
+	`expires_at` datetime(3) NOT NULL,
 	`token` varchar(255) NOT NULL,
-	`created_at` timestamp(3) NOT NULL DEFAULT (now()),
-	`updated_at` timestamp(3) NOT NULL,
+	`created_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+	`updated_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 	`ip_address` text,
 	`user_agent` text,
 	`user_id` varchar(36) NOT NULL,
@@ -43,8 +43,8 @@ CREATE TABLE `user` (
 	`email` varchar(255) NOT NULL,
 	`email_verified` boolean NOT NULL DEFAULT false,
 	`image` text,
-	`created_at` timestamp(3) NOT NULL DEFAULT (now()),
-	`updated_at` timestamp(3) NOT NULL DEFAULT (now()),
+	`created_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+	`updated_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 	CONSTRAINT `user_id` PRIMARY KEY(`id`),
 	CONSTRAINT `user_email_unique` UNIQUE(`email`)
 );
@@ -53,9 +53,9 @@ CREATE TABLE `verification` (
 	`id` varchar(36) NOT NULL,
 	`identifier` varchar(255) NOT NULL,
 	`value` text NOT NULL,
-	`expires_at` timestamp(3) NOT NULL,
-	`created_at` timestamp(3) NOT NULL DEFAULT (now()),
-	`updated_at` timestamp(3) NOT NULL DEFAULT (now()),
+	`expires_at` datetime(3) NOT NULL,
+	`created_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+	`updated_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 	CONSTRAINT `verification_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
@@ -64,7 +64,7 @@ CREATE TABLE `memberships` (
 	`user_id` varchar(36) NOT NULL,
 	`pharmacy_id` varchar(36) NOT NULL,
 	`role` enum('owner','staff') NOT NULL,
-	`created_at` timestamp(3) NOT NULL DEFAULT (now()),
+	`created_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 	CONSTRAINT `memberships_id` PRIMARY KEY(`id`),
 	CONSTRAINT `memberships_user_pharmacy_uq` UNIQUE(`user_id`,`pharmacy_id`)
 );
@@ -75,7 +75,7 @@ CREATE TABLE `pharmacies` (
 	`slug` varchar(80) NOT NULL,
 	`plan_id` varchar(36),
 	`credits_balance` int NOT NULL DEFAULT 0,
-	`created_at` timestamp(3) NOT NULL DEFAULT (now()),
+	`created_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 	CONSTRAINT `pharmacies_id` PRIMARY KEY(`id`),
 	CONSTRAINT `pharmacies_slug_unique` UNIQUE(`slug`)
 );

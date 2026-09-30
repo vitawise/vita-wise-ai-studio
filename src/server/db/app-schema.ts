@@ -1,9 +1,10 @@
+import { sql } from "drizzle-orm";
 import {
   index,
   int,
   mysqlEnum,
   mysqlTable,
-  timestamp,
+  datetime,
   uniqueIndex,
   varchar,
 } from "drizzle-orm/mysql-core";
@@ -16,7 +17,9 @@ export const pharmacies = mysqlTable("pharmacies", {
   // Plans arrive in Phase 2; nullable until then.
   planId: varchar("plan_id", { length: 36 }),
   creditsBalance: int("credits_balance").notNull().default(0),
-  createdAt: timestamp("created_at", { fsp: 3 }).notNull().defaultNow(),
+  createdAt: datetime("created_at", { fsp: 3, mode: "date" })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`),
 });
 
 export const membershipRoles = ["owner", "staff"] as const;
@@ -33,7 +36,9 @@ export const memberships = mysqlTable(
       .notNull()
       .references(() => pharmacies.id, { onDelete: "cascade" }),
     role: mysqlEnum("role", membershipRoles).notNull(),
-    createdAt: timestamp("created_at", { fsp: 3 }).notNull().defaultNow(),
+    createdAt: datetime("created_at", { fsp: 3, mode: "date" })
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP(3)`),
   },
   (t) => [
     uniqueIndex("memberships_user_pharmacy_uq").on(t.userId, t.pharmacyId),

@@ -40,7 +40,9 @@ try {
   await migrate(drizzle(connection), { migrationsFolder: "./src/server/db/migrations" });
   console.log("db:migrate applied");
 } catch (err) {
-  console.error(`db:migrate failed: ${err.code ?? ""} ${err.message}`);
+  const cause = err.cause ?? err;
+  console.error(`db:migrate failed: ${cause.code ?? ""} ${cause.message}`);
+  if (cause !== err) console.error(err.message.split("\n")[0]);
   process.exitCode = 1;
 } finally {
   await connection.end();

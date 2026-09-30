@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "1b58e546-e3a6-46fa-aa93-7758d9c8f84a",
+  "id": "13301165-493a-4e87-ad23-d9e8933bb5ee",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -58,14 +58,14 @@
         },
         "access_token_expires_at": {
           "name": "access_token_expires_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
         "refresh_token_expires_at": {
           "name": "refresh_token_expires_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -86,24 +86,27 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
         }
       },
       "indexes": {
         "account_userId_idx": {
           "name": "account_userId_idx",
-          "columns": ["user_id"],
+          "columns": [
+            "user_id"
+          ],
           "isUnique": false
         }
       },
@@ -112,8 +115,12 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -121,7 +128,9 @@
       "compositePrimaryKeys": {
         "account_id": {
           "name": "account_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {},
@@ -164,13 +173,17 @@
       "compositePrimaryKeys": {
         "rate_limit_id": {
           "name": "rate_limit_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {
         "rate_limit_key_unique": {
           "name": "rate_limit_key_unique",
-          "columns": ["key"]
+          "columns": [
+            "key"
+          ]
         }
       },
       "checkConstraint": {}
@@ -187,7 +200,7 @@
         },
         "expires_at": {
           "name": "expires_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -201,18 +214,19 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
         },
         "ip_address": {
           "name": "ip_address",
@@ -239,7 +253,9 @@
       "indexes": {
         "session_userId_idx": {
           "name": "session_userId_idx",
-          "columns": ["user_id"],
+          "columns": [
+            "user_id"
+          ],
           "isUnique": false
         }
       },
@@ -248,8 +264,12 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -257,13 +277,17 @@
       "compositePrimaryKeys": {
         "session_id": {
           "name": "session_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {
         "session_token_unique": {
           "name": "session_token_unique",
-          "columns": ["token"]
+          "columns": [
+            "token"
+          ]
         }
       },
       "checkConstraint": {}
@@ -309,19 +333,19 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         }
       },
       "indexes": {},
@@ -329,13 +353,17 @@
       "compositePrimaryKeys": {
         "user_id": {
           "name": "user_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": ["email"]
+          "columns": [
+            "email"
+          ]
         }
       },
       "checkConstraint": {}
@@ -366,32 +394,34 @@
         },
         "expires_at": {
           "name": "expires_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         }
       },
       "indexes": {
         "verification_identifier_idx": {
           "name": "verification_identifier_idx",
-          "columns": ["identifier"],
+          "columns": [
+            "identifier"
+          ],
           "isUnique": false
         }
       },
@@ -399,7 +429,9 @@
       "compositePrimaryKeys": {
         "verification_id": {
           "name": "verification_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {},
@@ -438,22 +470,27 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         }
       },
       "indexes": {
         "memberships_user_pharmacy_uq": {
           "name": "memberships_user_pharmacy_uq",
-          "columns": ["user_id", "pharmacy_id"],
+          "columns": [
+            "user_id",
+            "pharmacy_id"
+          ],
           "isUnique": true
         },
         "memberships_pharmacy_idx": {
           "name": "memberships_pharmacy_idx",
-          "columns": ["pharmacy_id"],
+          "columns": [
+            "pharmacy_id"
+          ],
           "isUnique": false
         }
       },
@@ -462,8 +499,12 @@
           "name": "memberships_user_id_user_id_fk",
           "tableFrom": "memberships",
           "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -471,8 +512,12 @@
           "name": "memberships_pharmacy_id_pharmacies_id_fk",
           "tableFrom": "memberships",
           "tableTo": "pharmacies",
-          "columnsFrom": ["pharmacy_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "pharmacy_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -480,7 +525,9 @@
       "compositePrimaryKeys": {
         "memberships_id": {
           "name": "memberships_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {},
@@ -527,11 +574,11 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "datetime(3)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP(3)"
         }
       },
       "indexes": {},
@@ -539,13 +586,17 @@
       "compositePrimaryKeys": {
         "pharmacies_id": {
           "name": "pharmacies_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {
         "pharmacies_slug_unique": {
           "name": "pharmacies_slug_unique",
-          "columns": ["slug"]
+          "columns": [
+            "slug"
+          ]
         }
       },
       "checkConstraint": {}
