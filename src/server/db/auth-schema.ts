@@ -1,10 +1,10 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   mysqlTable,
   varchar,
   text,
   bigint,
-  timestamp,
+  datetime,
   boolean,
   int,
   index,
@@ -16,9 +16,11 @@ export const user = mysqlTable("user", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
-  createdAt: timestamp("created_at", { fsp: 3 }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { fsp: 3 })
-    .defaultNow()
+  createdAt: datetime("created_at", { fsp: 3, mode: "date" })
+    .default(sql`CURRENT_TIMESTAMP(3)`)
+    .notNull(),
+  updatedAt: datetime("updated_at", { fsp: 3, mode: "date" })
+    .default(sql`CURRENT_TIMESTAMP(3)`)
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
@@ -27,10 +29,13 @@ export const session = mysqlTable(
   "session",
   {
     id: varchar("id", { length: 36 }).primaryKey(),
-    expiresAt: timestamp("expires_at", { fsp: 3 }).notNull(),
+    expiresAt: datetime("expires_at", { fsp: 3, mode: "date" }).notNull(),
     token: varchar("token", { length: 255 }).notNull().unique(),
-    createdAt: timestamp("created_at", { fsp: 3 }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { fsp: 3 })
+    createdAt: datetime("created_at", { fsp: 3, mode: "date" })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
+      .notNull(),
+    updatedAt: datetime("updated_at", { fsp: 3, mode: "date" })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
     ipAddress: text("ip_address"),
@@ -54,12 +59,15 @@ export const account = mysqlTable(
     accessToken: text("access_token"),
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
-    accessTokenExpiresAt: timestamp("access_token_expires_at", { fsp: 3 }),
-    refreshTokenExpiresAt: timestamp("refresh_token_expires_at", { fsp: 3 }),
+    accessTokenExpiresAt: datetime("access_token_expires_at", { fsp: 3, mode: "date" }),
+    refreshTokenExpiresAt: datetime("refresh_token_expires_at", { fsp: 3, mode: "date" }),
     scope: text("scope"),
     password: text("password"),
-    createdAt: timestamp("created_at", { fsp: 3 }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { fsp: 3 })
+    createdAt: datetime("created_at", { fsp: 3, mode: "date" })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
+      .notNull(),
+    updatedAt: datetime("updated_at", { fsp: 3, mode: "date" })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
@@ -72,10 +80,12 @@ export const verification = mysqlTable(
     id: varchar("id", { length: 36 }).primaryKey(),
     identifier: varchar("identifier", { length: 255 }).notNull(),
     value: text("value").notNull(),
-    expiresAt: timestamp("expires_at", { fsp: 3 }).notNull(),
-    createdAt: timestamp("created_at", { fsp: 3 }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { fsp: 3 })
-      .defaultNow()
+    expiresAt: datetime("expires_at", { fsp: 3, mode: "date" }).notNull(),
+    createdAt: datetime("created_at", { fsp: 3, mode: "date" })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
+      .notNull(),
+    updatedAt: datetime("updated_at", { fsp: 3, mode: "date" })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },

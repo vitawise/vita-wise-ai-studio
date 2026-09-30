@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1] — Production DB fixes
+
+### Fixed
+
+- Initial migration failed on Hostinger MySQL (`Invalid default value`) because of legacy
+  `TIMESTAMP` defaults. All date columns are now `DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3)`.
+- `db:migrate` is plain JS (runs on any Node) and prints the underlying MySQL error.
+
 ## [0.1.0] — Phase 1: auth, tenancy, i18n shell
 
 ### Added
