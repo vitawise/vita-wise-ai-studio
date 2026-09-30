@@ -44,6 +44,7 @@
     "resetSubmit": "Save password",
     "resetDone": "Password changed. Sign in now.",
     "invalidToken": "This link is invalid or expired. Request a new one.",
+    "notConfigured": "Sign-in isn't available yet: the database or auth secret isn't configured on this server.",
     "backToLogin": "Back to sign in",
     "errors": {
       "generic": "Something went wrong. Please try again.",

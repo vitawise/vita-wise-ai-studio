@@ -47,6 +47,12 @@ R2_SECRET_ACCESS_KEY R2_BUCKET ADMIN_USER ADMIN_PASSWORD LOG_LEVEL`.
 
 ## Vercel (preview only — not the production target)
 
+Project `vita-wise-ai-studio` (team `vita-wise`): framework **Next.js**, Node **22.x** (also
+declared in `vercel.json`). Production URL: `https://vita-wise-ai-studio-vita-wise.vercel.app`
+(`vita-wise-ai-studio.vercel.app` belongs to someone else). Every push to `main` deploys to
+production; every other branch gets a preview URL. Without `DB_*` + `BETTER_AUTH_SECRET` the
+public pages work and auth pages show a "not configured" notice instead of failing.
+
 Vercel builds whatever is on `main`. If `main` has no app (only `CLAUDE.md`) Vercel serves
 `404: NOT_FOUND` — merge the app into `main` first. Vercel cannot reach Hostinger's MySQL at
 `127.0.0.1`; auth pages need a MySQL that accepts remote connections (hPanel → Remote MySQL,

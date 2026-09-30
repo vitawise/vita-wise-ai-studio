@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { AuthNotConfigured } from "@/components/auth/not-configured";
 import { AuthCard } from "@/components/auth/auth-card";
 import { GoogleButton } from "@/components/auth/google-button";
 import { SignupForm } from "@/components/auth/signup-form";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { isAuthConfigured } from "@/server/auth/configured";
 import { googleEnabled } from "@/server/auth/auth";
 import { redirectIfSignedIn } from "@/server/auth/redirect-if-signed-in";
 
@@ -30,8 +32,14 @@ export default async function SignupPage({ params }: PageProps<"/[locale]/signup
         </span>
       }
     >
-      <SignupForm />
-      {googleEnabled() && <GoogleButton />}
+      {isAuthConfigured() ? (
+        <>
+          <SignupForm />
+          {googleEnabled() && <GoogleButton />}
+        </>
+      ) : (
+        <AuthNotConfigured />
+      )}
     </AuthCard>
   );
 }

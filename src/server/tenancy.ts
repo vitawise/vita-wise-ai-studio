@@ -4,12 +4,14 @@ import { cache } from "react";
 import { redirect } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getAuth } from "./auth/auth";
+import { isAuthConfigured } from "./auth/configured";
 import { findMembershipForUser } from "./repositories/pharmacies";
 import { mintTenantContext, type TenantContext } from "./tenant-context";
 
 export const getSession = cache(async () => {
   // Read headers first: it opts the route into dynamic rendering before auth/DB init.
   const requestHeaders = await headers();
+  if (!isAuthConfigured()) return null;
   return getAuth().api.getSession({ headers: requestHeaders });
 });
 
