@@ -38,6 +38,9 @@ try {
   process.exit(1);
 }
 
+const [[{ v }]] = await connection.query("SELECT VERSION() AS v");
+console.log(`db:migrate server version ${v}`);
+
 const migrationsFolder = "./src/server/db/migrations";
 
 /**
@@ -80,7 +83,7 @@ try {
 } catch (err) {
   const cause = err.cause ?? err;
   console.error(`db:migrate failed: ${cause.code ?? ""} ${cause.message}`);
-  if (cause !== err) console.error(err.message.split("\n")[0]);
+  if (cause !== err) console.error(err.message.split("\nparams")[0]);
   process.exitCode = 1;
 } finally {
   await connection.end();
