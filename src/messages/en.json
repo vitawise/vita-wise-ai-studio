@@ -1,0 +1,97 @@
+{
+  "common": {
+    "appName": "VitaWise AI Studio",
+    "switchLocale": "العربية",
+    "signOut": "Sign out",
+    "loading": "Loading…",
+    "or": "or"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "trends": "AI Trends",
+    "studio": "Product Studio",
+    "pricing": "Pricing Intelligence",
+    "content": "Content Generator",
+    "salla": "Salla Sync",
+    "billing": "Billing",
+    "settings": "Settings"
+  },
+  "landing": {
+    "title": "Product content and pricing for your pharmacy, in one place",
+    "subtitle": "Verify product facts, compare Saudi market prices, and prepare Arabic content for your Salla store — nothing is published without your review and approval.",
+    "ctaSignup": "Create account",
+    "ctaLogin": "Sign in",
+    "disclaimer": "AI-generated content must be checked against the official leaflet and package before publishing. Not medical advice."
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "signupTitle": "Create account",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 10 characters",
+    "loginSubmit": "Sign in",
+    "signupSubmit": "Create account",
+    "google": "Continue with Google",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "forgot": "Forgot password?",
+    "forgotTitle": "Reset password",
+    "forgotSubmit": "Send reset link",
+    "forgotSent": "If this email is registered, you'll receive a link to reset your password.",
+    "resetTitle": "Set a new password",
+    "newPassword": "New password",
+    "resetSubmit": "Save password",
+    "resetDone": "Password changed. Sign in now.",
+    "invalidToken": "This link is invalid or expired. Request a new one.",
+    "notConfigured": "Sign-in isn't available yet: the database or auth secret isn't configured on this server.",
+    "backToLogin": "Back to sign in",
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "invalidCredentials": "Incorrect email or password.",
+      "userExists": "This email is already registered.",
+      "passwordTooShort": "Password is too short.",
+      "tooManyRequests": "Too many attempts. Wait a minute and try again."
+    }
+  },
+  "onboarding": {
+    "title": "Welcome! What's your pharmacy's name?",
+    "subtitle": "It appears in your pharmacy's workspace.",
+    "pharmacyName": "Pharmacy name",
+    "placeholder": "e.g. VitaWise Pharmacy",
+    "hint": "Entered once during setup.",
+    "submit": "Get started",
+    "errors": {
+      "invalid": "Enter a name between 2 and 120 characters.",
+      "generic": "Couldn't create the pharmacy. Please try again."
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome, {name}",
+    "pharmacy": "Pharmacy",
+    "role": "Your role",
+    "credits": "Credits",
+    "nextSteps": "Modules appear in the sidebar as they ship."
+  },
+  "roles": {
+    "owner": "Owner",
+    "staff": "Staff"
+  },
+  "comingSoon": {
+    "title": "Coming soon",
+    "body": "This module is under construction."
+  },
+  "settings": {
+    "profile": "Pharmacy profile",
+    "name": "Name",
+    "slug": "Identifier",
+    "team": "Team",
+    "email": "Email",
+    "role": "Role",
+    "invitesSoon": "Staff invitations are coming soon."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "back": "Back to home"
+  }
+}
