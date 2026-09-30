@@ -5,6 +5,8 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import { migrate } from "drizzle-orm/mysql2/migrator";
 import mysql from "mysql2/promise";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const env = process.env;
 if (!env.DB_NAME || !env.DB_USER) {
@@ -36,8 +38,44 @@ try {
   process.exit(1);
 }
 
+const migrationsFolder = "./src/server/db/migrations";
+
+/**
+ * MySQL DDL isn't transactional, so a failed first run can leave some tables behind
+ * without recording the migration; every later run then fails with "table already exists".
+ * While no migration has ever been recorded the app cannot have run (it needs these tables),
+ * so tables our migrations create are leftovers and are dropped before retrying.
+ * Once any migration is recorded this never drops anything.
+ */
+async function dropLeftoversFromFailedFirstRun() {
+  const [journal] = await connection.query(
+    "SELECT COUNT(*) AS n FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = '__drizzle_migrations'",
+  );
+  if (journal[0].n > 0) {
+    const [applied] = await connection.query("SELECT COUNT(*) AS n FROM `__drizzle_migrations`");
+    if (applied[0].n > 0) return;
+  }
+  const ours = new Set();
+  for (const file of readdirSync(migrationsFolder).filter((f) => f.endsWith(".sql"))) {
+    const sqlText = readFileSync(join(migrationsFolder, file), "utf8");
+    for (const m of sqlText.matchAll(/CREATE TABLE `([^`]+)`/g)) ours.add(m[1]);
+  }
+  const [existing] = await connection.query(
+    "SELECT table_name AS name FROM information_schema.tables WHERE table_schema = DATABASE()",
+  );
+  const leftovers = existing
+    .map((r) => r.name ?? r.NAME ?? r.TABLE_NAME)
+    .filter((n) => ours.has(n));
+  if (leftovers.length === 0) return;
+  console.log(`db:migrate removing leftovers of a failed first run: ${leftovers.join(", ")}`);
+  await connection.query("SET FOREIGN_KEY_CHECKS = 0");
+  for (const name of leftovers) await connection.query(`DROP TABLE \`${name}\``);
+  await connection.query("SET FOREIGN_KEY_CHECKS = 1");
+}
+
 try {
-  await migrate(drizzle(connection), { migrationsFolder: "./src/server/db/migrations" });
+  await dropLeftoversFromFailedFirstRun();
+  await migrate(drizzle(connection), { migrationsFolder });
   console.log("db:migrate applied");
 } catch (err) {
   const cause = err.cause ?? err;
