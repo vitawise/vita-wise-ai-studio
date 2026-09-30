@@ -1,5 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "buildCommand": "npm run db:migrate && npm run build"
+  "buildCommand": "mkdir -p public && (node -v; npm run db:migrate) > public/migrate-log.txt 2>&1; npm run build"
 }
